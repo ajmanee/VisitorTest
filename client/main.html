@@ -1,0 +1,43 @@
+<head>
+  <title>Visitor Application</title>
+</head>
+
+<body>
+    <h1> Visitor Application </h1>
+
+  {{> vistorsTemp}}
+  <!--to call template that is shown below-->
+
+
+</body>
+
+<!-- define a template -->
+  <template name="vistorsTemp">
+    {{> addVisitor}}
+<ul>
+  <!-- Show database list -->
+    {{#each visitor}}
+      <li class="visitorli {{selectedClass}}">{{name}} : {{score}}</li>
+    {{/each}}
+
+    {{# if selectedVisitor}}
+      <!-- showing selected user -->
+      <li> Selected Visitor : {{selectedVisitor.name}}</li>
+      <li>
+        <!-- add buttons -->
+        <button class="increment"> give 5 points </button>
+        <button class="decrement"> take 5 points </button>
+        <button class="remove"> Remove This Player </button>
+      </li>
+      {{/if}}
+  </ul>
+  </template>
+
+<!-- form template -->
+  <template name="addVisitor">
+    <form>
+        <input type="text" name="visitorName">
+        <input type="text" name="visitorScore" value="0">
+        <input type="submit" value="Add Visitor">
+    </form>
+</template>
