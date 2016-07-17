@@ -5,14 +5,20 @@
 <body>
     <h1> Visitor Application </h1>
 
+    <!-- add login template -->
+
+    <p class="outset">{{> loginButtons}}</p>
+
+
   {{> vistorsTemp}}
   <!--to call template that is shown below-->
 
 
 </body>
-
 <!-- define a template -->
   <template name="vistorsTemp">
+   <!-- this statment is there to only shows the data to logined user -->
+    {{#if currentUser}}
     {{> addVisitor}}
 <ul>
   <!-- Show database list -->
@@ -31,6 +37,10 @@
       </li>
       {{/if}}
   </ul>
+  {{else}} <!-- message for user who is not logged-in -->
+      <p> You have to be logged-in to see this content </p>
+<!-- test git only -->
+  {{/if}}
   </template>
 
 <!-- form template -->

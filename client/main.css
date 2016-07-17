@@ -1,3 +1,6 @@
+    /* CSS declarations go here */
 .selected {
     background-color: yellow
-    }/* CSS declarations go here */
+    },
+.outset {
+      border-style: outset;}

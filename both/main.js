@@ -7,7 +7,8 @@ if (Meteor.isServer){
 if (Meteor.isClient){
  Template.vistorsTemp.helpers({
    'visitor' : function () {
-     return VisitorList.find({}, {sort: {score: -1, name: 1}});
+     var currentUserId = Meteor.userId ()
+     return VisitorList.find({ createdBy: currentUserId}, {sort: {score: -1, name: 1}});
    },
    'selectedClass' : function() {
      var visitorId = this._id ;
@@ -34,18 +35,18 @@ if (Meteor.isClient){
 
     },
     'click .increment' : function (){
-      alert('Are you sure to increment This visitor');
+    //  alert('Are you sure to increment This visitor');
       var selectedVisitor = Session.get('selectedVisitor');
       VisitorList.update({_id: selectedVisitor}, {$inc: {score: 5}});
 
     },
     'click .decrement' : function (){
-      alert('Are you sure to decrement This visitor');
+      //alert('Are you sure to decrement This visitor');
       var selectedVisitor = Session.get('selectedVisitor');
       VisitorList.update({_id: selectedVisitor}, {$inc: {score: -5}});
     },
     'click .remove' : function (){
-      alert('Are you sure to remove This visitor');
+      //alert('Are you sure to remove This visitor');
       var selectedVisitor = Session.get('selectedVisitor');
       VisitorList.remove({_id : selectedVisitor })
 
@@ -57,11 +58,13 @@ if (Meteor.isClient){
 Template.addVisitor.events({
   'submit form' : function(){
     event.preventDefault();
-    var visitorNameVar = event.target.visitorName.value;
+    var visitorNameVar = event.target.visitorName.value
+    var currentUserId = Meteor.userId();
     var visitorScoreVar = event.target.visitorScore.value;
     VisitorList.insert({
       name : visitorNameVar,
-      score : visitorScoreVar
+      score : Number(visitorScoreVar), // This to add number in collection 
+      createdBy : currentUserId
     });
     event.target.visitorName.value = ""; // We use this to clear the text box
     }
